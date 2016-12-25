@@ -54,7 +54,7 @@ public class SpringSqlAnnotationExample {
     }
 
     @Test
-    @Sql({"classpath:drop_schema.sql", "classpath:schema.sql", "classpath:override_data.sql"})
+    @Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql", "classpath:override_data.sql"})
     public void overrideSqlAndPrintRows() {
         List programmers = jdbcTemplate.queryForList("select name from programmer",
                 String.class);
@@ -63,7 +63,7 @@ public class SpringSqlAnnotationExample {
     }
 
     @Test
-    @Sql({"classpath:drop_schema.sql", "classpath:schema.sql"})
+    @Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql"})
     public void programmersNeedAUnicorn() throws SQLException {
         Programmer programmer = Programmer.builder().withName("Paul").build();
         Unicorn unicorn = Unicorn.builder().withName("Sparkle Mane").withProgrammer(programmer).build();
