@@ -1,2 +1,3 @@
 rootProject.name = 'HSQLDBPlayGround'
-
+include 'programmers-and-unicorns'
+include 'test-support'

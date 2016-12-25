@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-
 import static com.games.util.Util.toIndex;
 import static com.games.util.Util.toPoint;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
