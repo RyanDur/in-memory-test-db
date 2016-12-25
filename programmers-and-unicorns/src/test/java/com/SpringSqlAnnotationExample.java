@@ -25,7 +25,7 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestContext.class)
-@Sql({"classpath:drop_schema.sql", "classpath:schema.sql", "classpath:data.sql"})
+@Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql", "classpath:data.sql"})
 public class SpringSqlAnnotationExample {
 
     @Autowired

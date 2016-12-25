@@ -1,6 +1,17 @@
 group 'InMemeoryDB'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.boxfuse.client:flyway-release:4.0.3"
+    }
+}
+
+apply plugin: "org.flywaydb.flyway"
 
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
@@ -12,4 +23,9 @@ dependencies {
 
     testCompile project(':test-support')
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost/foo'
+    user = 'root'
 }

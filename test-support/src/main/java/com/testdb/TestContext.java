@@ -20,7 +20,7 @@ public class TestContext {
         @Bean
         public DataSource dataSource() {
             return DataSourceBuilder.create()
-                    .url("jdbc:hsqldb:mem:PUBLIC;sql.syntax_db2=true;")
+                    .url("jdbc:hsqldb:mem:PUBLIC;sql.syntax_mysql=true;")
                     .username("sa")
                     .password("").build();
         }
