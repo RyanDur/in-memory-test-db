@@ -2,9 +2,7 @@ package com;
 
 import com.testdb.TestContext;
 import com.testdb.testhelpers.Programmer;
-import com.testdb.testhelpers.ProgrammerTestFixture;
 import com.testdb.testhelpers.Unicorn;
-import com.testdb.testhelpers.UnicornTestFixture;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,62 +14,55 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestContext.class)
-@Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql", "classpath:data.sql"})
-public class SpringSqlAnnotationExample {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private ProgrammerTestFixture programmerTestFixture;
-
-    @Autowired
-    private UnicornTestFixture unicornTestFixture;
+@Sql({"classpath:drop_schema.sql", "classpath:schema.sql"})
+public class ProgrammersAndUnicornsTest {
 
     @Rule
     public TestName testName = new TestName();
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    private ProgrammersAndUnicorns pairs;
+
     @Before
     public void printTestName() {
+        pairs = new ProgrammersAndUnicorns(jdbcTemplate);
         System.out.println(testName.getMethodName());
     }
 
     @Test
-    public void printRows() {
+    public void shouldBeAbleToAddAProgrammer() {
+        String programmer = "Heather";
+        pairs.add(programmer);
+
         List<String> programmers = jdbcTemplate.queryForList("select name from programmer",
                 String.class);
-        assertThat(2, is(equalTo(programmers.size())));
+
+        assertThat(programmers.size(), is(equalTo(1)));
+        assertThat(programmers.get(0), is(equalTo(programmer)));
         System.out.println(programmers);
     }
 
     @Test
-    @Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql", "classpath:override_data.sql"})
-    public void overrideSqlAndPrintRows() {
+    public void shouldBeAbleToAddAUnicornToAProgrammer() throws InterruptedException {
+        String programmer = "Partho";
+        String unicorn = "Glitter Cup";
+        pairs.add(unicorn, programmer);
+
         List<String> programmers = jdbcTemplate.queryForList("select name from programmer",
                 String.class);
-        assertThat(3, is(equalTo(programmers.size())));
-        System.out.println(programmers);
-    }
 
-    @Test
-    @Sql({"classpath:drop_schema.sql", "classpath:db/migration/V1__base.sql"})
-    public void programmersNeedAUnicorn() throws SQLException {
-        Programmer programmer = Programmer.builder().withName("Paul").build();
-        Unicorn unicorn = Unicorn.builder().withName("Sparkle Mane").withProgrammer(programmer).build();
-
-        programmerTestFixture.insert(programmer);
-        unicornTestFixture.insert(unicorn);
-
-        Unicorn sparkleMane = jdbcTemplate.queryForObject("select * from unicorn", (rs, rowNum) ->
+        Unicorn glitterCup = jdbcTemplate.queryForObject("select * from unicorn", (rs, rowNum) ->
                 Unicorn.builder()
                         .withName(rs.getString("name"))
                         .withProgrammer(Programmer.builder()
@@ -79,7 +70,20 @@ public class SpringSqlAnnotationExample {
                                 .build())
                         .build());
 
-        assertThat(unicorn, is(sparkleMane));
-        System.out.println(sparkleMane);
+        assertThat(programmers.size(), is(equalTo(1)));
+        assertThat(programmers.get(0), is(equalTo(programmer)));
+        assertThat(glitterCup.getName(), is(equalTo(unicorn)));
+        System.out.println(glitterCup);
+    }
+
+    @Test
+    public void shouldBeAbleToGetAllTheProgrammers() {
+        List<String> names = asList("Heather", "Paul", "Anu", "Partho", "Jeff");
+        names.forEach(name -> pairs.add(name));
+
+        List<String> programmers = pairs.getAllProgrammers();
+
+        assertThat(programmers.size(), is(5));
+        assertThat(programmers, containsInAnyOrder("Heather", "Paul", "Anu", "Partho", "Jeff"));
     }
 }

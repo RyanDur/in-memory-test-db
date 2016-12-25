@@ -1,6 +1,5 @@
 CREATE TABLE programmer (
-  name VARCHAR(20) NOT NULL,
-  PRIMARY KEY(name)
+  name VARCHAR(20) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE unicorn (

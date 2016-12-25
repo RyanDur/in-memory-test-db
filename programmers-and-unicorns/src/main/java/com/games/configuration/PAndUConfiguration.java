@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-public class BattleShipConfiguration {
+public class PAndUConfiguration {
 
     @Bean
     public DataSource getDataSource(@Value("${spring.datasource.url}") String url,
