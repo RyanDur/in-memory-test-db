@@ -1,9 +1,10 @@
 package com;
 
-import com.testhelpers.Programmer;
-import com.testhelpers.ProgrammerTestFixture;
-import com.testhelpers.Unicorn;
-import com.testhelpers.UnicornTestFixture;
+import com.testdb.TestContext;
+import com.testdb.testhelpers.Programmer;
+import com.testdb.testhelpers.ProgrammerTestFixture;
+import com.testdb.testhelpers.Unicorn;
+import com.testdb.testhelpers.UnicornTestFixture;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -1,7 +1,7 @@
-package com;
+package com.testdb;
 
-import com.testhelpers.ProgrammerTestFixture;
-import com.testhelpers.UnicornTestFixture;
+import com.testdb.testhelpers.ProgrammerTestFixture;
+import com.testdb.testhelpers.UnicornTestFixture;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;

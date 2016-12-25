@@ -1,4 +1,4 @@
-package com.testhelpers;
+package com.testdb.testhelpers;
 
 public class Programmer {
     private String name;

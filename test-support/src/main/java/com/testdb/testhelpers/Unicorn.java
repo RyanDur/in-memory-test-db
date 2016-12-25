@@ -1,4 +1,4 @@
-package com.testhelpers;
+package com.testdb.testhelpers;
 
 public class Unicorn {
     private String name;
