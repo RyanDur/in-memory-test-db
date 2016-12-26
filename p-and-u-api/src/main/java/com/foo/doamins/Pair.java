@@ -63,4 +63,12 @@ public class Pair {
         result = 31 * result + (unicorn != null ? unicorn.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Pair{" +
+                "programmer=" + programmer +
+                ", unicorn=" + unicorn +
+                '}';
+    }
 }

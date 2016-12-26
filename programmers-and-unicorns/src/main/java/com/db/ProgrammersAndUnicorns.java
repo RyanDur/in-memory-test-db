@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 @Component
 public class ProgrammersAndUnicorns {
 
@@ -38,5 +40,16 @@ public class ProgrammersAndUnicorns {
 
     public List<String> getAllProgrammers() {
         return template.query("SELECT * FROM programmer", (rs, rowNum) -> rs.getString("name"));
+    }
+
+    public List<String> getAllUnicorns() {
+        return template.query("SELECT * FROM unicorn", (rs, rowNum) -> rs.getString("name"));
+    }
+
+    public List<List<String>> getAllPairs() {
+        return template.query("SELECT * FROM unicorn", (rs, rowNum) ->
+                asList(rs.getString("programmer_name"),
+                        rs.getString("name")));
+
     }
 }
