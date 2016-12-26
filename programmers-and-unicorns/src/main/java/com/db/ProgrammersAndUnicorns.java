@@ -52,4 +52,12 @@ public class ProgrammersAndUnicorns {
                         rs.getString("name")));
 
     }
+
+    public List<String> update(String name, String programmerName) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("name", name);
+        params.addValue("programmerName", programmerName);
+        template.update("UPDATE unicorn SET name = :name WHERE programmer_name = :programmerName", params);
+        return asList(programmerName, name);
+    }
 }

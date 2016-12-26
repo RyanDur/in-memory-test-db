@@ -27,6 +27,7 @@ import java.util.stream.IntStream;
 import static com.foo.services.UnicornGenerator.FIRST_NAME;
 import static com.foo.services.UnicornGenerator.LAST_NAME;
 import static com.testdb.testhelpers.Programmer.builder;
+import static java.lang.Math.min;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -38,6 +39,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -103,8 +105,7 @@ public class ProgrammerEndpointTest {
                 .content("{\"name\": \"" + programmerName + "\"}"))
                 .andExpect(status().isCreated()).andReturn();
 
-        String body = result.getResponse().getContentAsString();
-        Pair actual = mapper.readValue(body, Pair.class);
+        Pair actual = mapResponse(result, Pair.class);
         String[] split = actual.getUnicorn().getName().split(" ");
 
         assertThat(actual.getProgrammer(), is(programmer));
@@ -120,10 +121,9 @@ public class ProgrammerEndpointTest {
                 .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        String body = result.getResponse().getContentAsString();
-        List<Programmer> actual = asList(mapper.readValue(body, Programmer[].class));
+        List<Programmer> actual = asList(mapResponse(result, Programmer[].class));
 
-        assertThat(actual.size(), is(3));
+        assertThat(actual.size(), is(programmers.size()));
         assertThat(actual, containsInAnyOrder(programmers.toArray()));
     }
 
@@ -136,10 +136,9 @@ public class ProgrammerEndpointTest {
                 .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        String body = result.getResponse().getContentAsString();
-        List<Unicorn> actual = asList(mapper.readValue(body, Unicorn[].class));
+        List<Unicorn> actual = asList(mapResponse(result, Unicorn[].class));
 
-        assertThat(actual.size(), is(3));
+        assertThat(actual.size(), is(min(programmers.size(), unicorns.size())));
         assertThat(actual, containsInAnyOrder(unicorns.toArray()));
     }
 
@@ -153,16 +152,44 @@ public class ProgrammerEndpointTest {
                 .accept(APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
 
-        String body = result.getResponse().getContentAsString();
-        List<Pair> actual = asList(mapper.readValue(body, Pair[].class));
+        List<Pair> actual = asList(mapResponse(result, Pair[].class));
 
-        assertThat(actual.size(), is(3));
+        assertThat(actual.size(), is(min(programmers.size(), unicorns.size())));
         assertThat(actual, containsInAnyOrder(pairs.toArray()));
+    }
+
+    @Test
+    public void shouldBeAbleToChangeAProgrammersUnicorn() throws Exception {
+        String programmerName = "Josh";
+        String unicornName = "Dandelion Velvet Hooves";
+        String newUnicornName = "Starflower Darling Moon";
+        List<Programmer> programmers = getProgrammers(programmerName);
+        getUnicorns(programmers, unicornName);
+
+        Pair expected = Pair.builder()
+                .withProgrammer(programmers.get(0))
+                .withUnicorn(Unicorn.builder().withName(newUnicornName).build())
+                .build();
+
+        MvcResult result = mockMvc.perform(put("/programmers/" + programmerName)
+                .content("{\"name\": \"" + newUnicornName + "\"}")
+                .contentType(APPLICATION_JSON_VALUE)
+                .accept(APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+
+        Pair actual = mapResponse(result, Pair.class);
+
+        assertThat(actual, is(equalTo(expected)));
+    }
+
+    private <T> T mapResponse(MvcResult result, Class<T> valueType) throws java.io.IOException {
+        String body = result.getResponse().getContentAsString();
+        return mapper.readValue(body, valueType);
     }
 
     private List<Pair> getPairs(List<Programmer> programmers, List<Unicorn> unicorns) {
         return IntStream.range(
-                0, Math.min(programmers.size(), unicorns.size()))
+                0, min(programmers.size(), unicorns.size()))
                 .mapToObj(i -> Pair.builder()
                         .withProgrammer(programmers.get(i))
                         .withUnicorn(unicorns.get(i)).build()).collect(toList());
@@ -178,7 +205,7 @@ public class ProgrammerEndpointTest {
 
     private List<Unicorn> getUnicorns(List<Programmer> programmers, String... names) {
         return IntStream.range(
-                0, Math.min(programmers.size(), names.length))
+                0, min(programmers.size(), names.length))
                 .mapToObj(i -> com.testdb.testhelpers.Unicorn.builder()
                         .withName(names[i]).withProgrammer(builder()
                                 .withName(programmers.get(i).getName()).build()).build())

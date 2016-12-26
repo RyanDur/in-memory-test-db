@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -27,26 +28,37 @@ public class PairingService {
     public Pair createPairFor(String programmerName) {
         String unicornName = unicornGenerator.create();
         programmersAndUnicorns.add(unicornName, programmerName);
-        Programmer programmer = Programmer.builder().withName(programmerName).build();
-        Unicorn unicorn = Unicorn.builder().withName(unicornName).build();
-        return Pair.builder().withProgrammer(programmer).withUnicorn(unicorn).build();
+        return createPair(asList(programmerName, unicornName));
     }
 
     public List<Programmer> getProgrammers() {
-        return programmersAndUnicorns.getAllProgrammers().stream()
-                .map(name -> Programmer.builder().withName(name).build()).collect(toList());
+        return programmersAndUnicorns.getAllProgrammers().stream().map(this::createProgrammer).collect(toList());
     }
 
     public List<Unicorn> getUnicorns() {
-        return programmersAndUnicorns.getAllUnicorns().stream()
-                .map(name -> Unicorn.builder().withName(name).build()).collect(toList());
+        return programmersAndUnicorns.getAllUnicorns().stream().map(this::createUnicorn).collect(toList());
     }
 
     public List<Pair> getPairs() {
-        return programmersAndUnicorns.getAllPairs().stream()
-                .map(pair -> Pair.builder()
-                        .withProgrammer(Programmer.builder().withName(pair.get(0)).build())
-                        .withUnicorn(Unicorn.builder().withName(pair.get(1)).build())
-                        .build()).collect(toList());
+        return programmersAndUnicorns.getAllPairs().stream().map(this::createPair).collect(toList());
+    }
+
+    public Pair update(Unicorn unicorn, String programmerName) {
+        return createPair(programmersAndUnicorns.update(unicorn.getName(), programmerName));
+    }
+
+    private Pair createPair(List<String> pair) {
+        return Pair.builder()
+                .withProgrammer(createProgrammer(pair.get(0)))
+                .withUnicorn(createUnicorn(pair.get(1)))
+                .build();
+    }
+
+    private Programmer createProgrammer(String name) {
+        return Programmer.builder().withName(name).build();
+    }
+
+    private Unicorn createUnicorn(String name) {
+        return Unicorn.builder().withName(name).build();
     }
 }

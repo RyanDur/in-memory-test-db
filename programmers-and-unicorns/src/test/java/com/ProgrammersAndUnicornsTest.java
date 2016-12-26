@@ -16,9 +16,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
+import static java.lang.Math.min;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -85,6 +89,42 @@ public class ProgrammersAndUnicornsTest {
         List<String> programmers = pairs.getAllProgrammers();
 
         assertThat(programmers.size(), is(5));
-        assertThat(programmers, containsInAnyOrder("Heather", "Paul", "Anu", "Partho", "Jeff"));
+        assertThat(programmers, containsInAnyOrder(names.toArray()));
+    }
+
+    @Test
+    public void shouldBeAbleToGetAllTheUnicorns() {
+        List<String> programmers = asList("Heather", "Paul", "Anu", "Partho", "Jeff");
+        List<String> unicorns = asList("Mo", "Larry", "Curly", "Shemp", "Bozo");
+        zipTogether(programmers, unicorns)
+                .forEach(pair -> pairs.add(pair.get(1), pair.get(0)));
+
+        List<String> actual = pairs.getAllUnicorns();
+
+        assertThat(actual.size(), is(unicorns.size()));
+        assertThat(actual, containsInAnyOrder(unicorns.toArray()));
+
+    }
+
+    @Test
+    public void shouldBeAbleToGetAllThePairs() {
+        String programmer = "Heather";
+        String newUnicornMane = "Cookie";
+        List<String> programmers = asList(programmer, "Paul", "Anu", "Partho", "Jeff");
+        List<String> unicorns = asList("Mo", "Larry", "Curly", "Shemp", "Bozo");
+        zipTogether(programmers, unicorns)
+                .forEach(pair -> pairs.add(pair.get(1), pair.get(0)));
+        List<String> expected = asList(programmer, newUnicornMane);
+
+        List<String> actual = pairs.update(newUnicornMane, programmer);
+
+        assertThat(actual.size(), is(expected.size()));
+        assertThat(actual, contains(expected.toArray()));
+    }
+
+    private List<List<String>> zipTogether(List<String> left, List<String> right) {
+        return IntStream.range(0, min(left.size(), right.size()))
+                .mapToObj(i -> asList(left.get(i), right.get(i)))
+                .collect(toList());
     }
 }
