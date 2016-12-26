@@ -18,9 +18,9 @@ public class UnicornTestFixture {
     public Unicorn insert(Unicorn unicorn) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", unicorn.getName());
-        params.addValue("programmer", unicorn.getProgrammer().getName());
+        params.addValue("programmer_name", unicorn.getProgrammer().getName());
 
-        template.update("INSERT INTO unicorn(name, programmer) VALUES (:name, :programmer)", params);
+        template.update("INSERT INTO unicorn(name, programmer_name) VALUES (:name, :programmer_name)", params);
 
         return unicorn;
     }

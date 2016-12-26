@@ -1,3 +1,5 @@
 rootProject.name = 'HSQLDBPlayGround'
 include 'programmers-and-unicorns'
 include 'test-support'
+include 'p-and-u-api'
+

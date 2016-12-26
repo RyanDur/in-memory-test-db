@@ -5,8 +5,8 @@ CREATE TABLE programmer (
 CREATE TABLE unicorn (
   name VARCHAR(50) NOT NULL,
   PRIMARY KEY (name),
-  programmer VARCHAR(50),
+  programmer_name VARCHAR(50),
   CONSTRAINT programmers_name_fk
-  FOREIGN KEY (programmer)
+  FOREIGN KEY (programmer_name)
   REFERENCES programmer(name)
 )

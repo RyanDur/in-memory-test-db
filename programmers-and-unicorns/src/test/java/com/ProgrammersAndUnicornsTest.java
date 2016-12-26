@@ -1,5 +1,6 @@
 package com;
 
+import com.db.ProgrammersAndUnicorns;
 import com.testdb.TestContext;
 import com.testdb.testhelpers.Programmer;
 import com.testdb.testhelpers.Unicorn;
@@ -66,7 +67,7 @@ public class ProgrammersAndUnicornsTest {
                 Unicorn.builder()
                         .withName(rs.getString("name"))
                         .withProgrammer(Programmer.builder()
-                                .withName(rs.getString("programmer"))
+                                .withName(rs.getString("programmer_name"))
                                 .build())
                         .build());
 

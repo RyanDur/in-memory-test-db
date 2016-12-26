@@ -6,6 +6,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -17,6 +18,7 @@ public class TestContext {
     @TestConfiguration
     static class Config {
 
+        @Primary
         @Bean
         public DataSource dataSource() {
             return DataSourceBuilder.create()
