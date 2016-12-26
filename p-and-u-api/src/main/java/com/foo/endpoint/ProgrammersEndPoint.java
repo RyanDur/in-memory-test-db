@@ -1,6 +1,7 @@
 package com.foo.endpoint;
 
-import com.foo.services.Pair;
+import com.foo.doamins.Pair;
+import com.foo.doamins.Programmer;
 import com.foo.services.PairingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

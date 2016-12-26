@@ -1,20 +1,24 @@
-package com.foo.services;
+package com.foo.doamins;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
+@JsonDeserialize(builder = Pair.Builder.class)
 public class Pair {
 
-    private String programmer;
-    private String unicorn;
+    private final Programmer programmer;
+    private final Unicorn unicorn;
 
     private Pair(Builder builder) {
         programmer = builder.programmer;
         unicorn = builder.unicorn;
     }
 
-    public String getProgrammer() {
+    public Programmer getProgrammer() {
         return programmer;
     }
 
-    public String getUnicorn() {
+    public Unicorn getUnicorn() {
         return unicorn;
     }
 
@@ -22,16 +26,17 @@ public class Pair {
         return new Builder();
     }
 
+    @JsonPOJOBuilder()
     public static class Builder {
-        private String programmer;
-        private String unicorn;
+        private Programmer programmer;
+        private Unicorn unicorn;
 
-        public Builder withProgrammer(String programmer) {
+        public Builder withProgrammer(Programmer programmer) {
             this.programmer = programmer;
             return this;
         }
 
-        public Builder withUnicorn(String unicorn) {
+        public Builder withUnicorn(Unicorn unicorn) {
             this.unicorn = unicorn;
             return this;
         }

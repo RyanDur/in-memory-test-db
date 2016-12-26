@@ -1,6 +1,9 @@
 package com.foo.services;
 
 import com.db.ProgrammersAndUnicorns;
+import com.foo.doamins.Pair;
+import com.foo.doamins.Programmer;
+import com.foo.doamins.Unicorn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +20,11 @@ public class PairingService {
         this.unicornGenerator = unicornGenerator;
     }
 
-    public Pair createPairFor(String programmer) {
-        String unicorn = unicornGenerator.create();
-        programmersAndUnicorns.add(unicorn, programmer);
+    public Pair createPairFor(String programmerName) {
+        String unicornName = unicornGenerator.create();
+        programmersAndUnicorns.add(unicornName, programmerName);
+        Programmer programmer = Programmer.builder().withName(programmerName).build();
+        Unicorn unicorn = Unicorn.builder().withName(unicornName).build();
         return Pair.builder().withProgrammer(programmer).withUnicorn(unicorn).build();
     }
 }
