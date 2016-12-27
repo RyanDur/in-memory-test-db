@@ -60,4 +60,11 @@ public class ProgrammersAndUnicorns {
         template.update("UPDATE unicorn SET name = :name WHERE programmer_name = :programmerName", params);
         return asList(programmerName, name);
     }
+
+    public void delete(String programmerName) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("programmerName", programmerName);
+        template.update("DELETE FROM unicorn WHERE programmer_name = :programmerName", params);
+        template.update("DELETE FROM programmer WHERE name = :programmerName", params);
+    }
 }

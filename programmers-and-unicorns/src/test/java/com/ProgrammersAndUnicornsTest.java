@@ -25,7 +25,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestContext.class)
@@ -122,7 +124,42 @@ public class ProgrammersAndUnicornsTest {
         assertThat(actual, contains(expected.toArray()));
     }
 
-    private List<List<String>> zipTogether(List<String> left, List<String> right) {
+    @Test
+    public void shouldBeAbleToDeleteAProgrammer() {
+        String programmerName = "Heather";
+        List<String> names = asList(programmerName, "Paul", "Anu", "Partho", "Jeff");
+        names.forEach(name -> pairs.add(name));
+
+        pairs.delete(programmerName);
+
+        List<String> programmers = jdbcTemplate.queryForList("select name from programmer",
+                String.class);
+
+        assertThat(programmers.size(), is(equalTo(names.size() - 1)));
+        assertThat(programmers, not(hasItem(programmerName)));
+        System.out.println(programmers);
+    }
+
+
+    @Test
+    public void shouldBeDeleteTheUnicornOfTheProgrammerThatIsDeleted() {
+        String programmer = "Heather";
+        String unicorn = "Mo";
+        List<String> programmers = asList(programmer, "Paul", "Anu", "Partho", "Jeff");
+        List<String> unicorns = asList(unicorn, "Larry", "Curly", "Shemp", "Bozo");
+        zipTogether(programmers, unicorns)
+                .forEach(pair -> pairs.add(pair.get(1), pair.get(0)));
+
+        pairs.delete(programmer);
+        
+        List<String> actual = jdbcTemplate.queryForList("select name from unicorn",
+                String.class);
+
+        assertThat(actual.size(), is(programmers.size() - 1));
+        assertThat(actual, not(hasItem(unicorn)));
+    }
+
+    private <T> List<List<T>> zipTogether(List<T> left, List<T> right) {
         return IntStream.range(0, min(left.size(), right.size()))
                 .mapToObj(i -> asList(left.get(i), right.get(i)))
                 .collect(toList());

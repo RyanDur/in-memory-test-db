@@ -16,6 +16,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -61,6 +62,15 @@ public class ProgrammersEndPoint {
     public Pair updateProgrammer(@PathVariable String programmerName,
                                  @RequestBody Unicorn unicorn) {
         return pairingService.update(unicorn, programmerName);
+    }
+
+    @RequestMapping(
+            value = "/programmers/{programmerName}",
+            method = DELETE
+    )
+    @ResponseStatus(OK)
+    public void updateProgrammer(@PathVariable String programmerName) {
+        pairingService.delete(programmerName);
     }
 
     @RequestMapping(

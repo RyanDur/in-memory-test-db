@@ -61,4 +61,8 @@ public class PairingService {
     private Unicorn createUnicorn(String name) {
         return Unicorn.builder().withName(name).build();
     }
+
+    public void delete(String programmerName) {
+        programmersAndUnicorns.delete(programmerName);
+    }
 }

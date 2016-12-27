@@ -35,8 +35,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -180,6 +182,21 @@ public class ProgrammerEndpointTest {
         Pair actual = mapResponse(result, Pair.class);
 
         assertThat(actual, is(equalTo(expected)));
+    }
+
+    @Test
+    public void shouldBeAbleToDeleteAProgrammer() throws Exception {
+        String programmerName = "Jeff";
+        List<Programmer> programmers = getProgrammers("Heather", "Anu", "Paul", "Jeff");
+        getUnicorns(programmers, "Mo", "Larry", "Curly", "Bozo");
+
+        mockMvc.perform(delete("/programmers/" + programmerName))
+                .andExpect(status().isOk());
+
+        List<String> programmerNames = jdbcTemplate.query("select name from programmer",
+                (r, rowNum) -> r.getString("name"));
+
+        assertThat(programmerNames, not(hasItem(programmerName)));
     }
 
     private <T> T mapResponse(MvcResult result, Class<T> valueType) throws java.io.IOException {
