@@ -151,7 +151,7 @@ public class ProgrammersAndUnicornsTest {
                 .forEach(pair -> pairs.add(pair.get(1), pair.get(0)));
 
         pairs.delete(programmer);
-        
+
         List<String> actual = jdbcTemplate.queryForList("select name from unicorn",
                 String.class);
 
