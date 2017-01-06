@@ -2,6 +2,6 @@
 
 set -e -x
 
-pushd in-memory-test-db
+pushd pu-git
   ./gradlew clean test
 popd
