@@ -5,5 +5,8 @@ image_resource:
   type: docker-image
   source: {repository: java, tag: "8"}
 
+inputs:
+- name: in-memory-test-db
+
 run:
   path: ./in-memory-test-db/ci/test.sh
