@@ -3,6 +3,5 @@
 set -e -x
 
 pushd pu-git
-  gradle wrapper
-  ./gradlew clean test
+  gradle clean test
 popd
