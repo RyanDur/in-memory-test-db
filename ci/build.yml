@@ -9,4 +9,4 @@ inputs:
 - name: pu-git
 
 run:
-  path: ./in-memory-test-db/ci/test.sh
+  path: ./pu-git/ci/test.sh
