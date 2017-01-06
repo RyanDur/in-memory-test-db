@@ -3,11 +3,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: ubuntu, tag: "14.04"}
-
-inputs:
-- name: some-important-unicorn
+  source: {repository: java, tag: "8"}
 
 run:
-  path: ls
-  args: ['-al']
+  path: pu-git/ci/test.sh

@@ -11,4 +11,4 @@ jobs:
   plan:
   - get: pu-git
   - task: hello-unicorn
-    file: pu-git/ci/test.sh
+    file: pu-git/ci/build.yml
