@@ -1,0 +1,14 @@
+---
+resources:
+- name: pu-git
+  type: git
+  source:
+    uri: https://github.com/RyanDur/in-memory-test-db
+
+jobs:
+- name: job-hello-unicorn
+  public: true
+  plan:
+  - get: pu-git
+  - task: hello-unicorn
+    file: pu-git/ci/test.sh
