@@ -6,4 +6,4 @@ image_resource:
   source: {repository: java, tag: "8"}
 
 run:
-  path: pu-git/ci/test.sh
+  path: ./pu-git/ci/test.sh
