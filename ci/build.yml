@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: saturnism/spring-boot:1.2.3jdk-8-groovy-2.4.3-onbuild
+    repository: saturnism/spring-boot
 
 inputs:
 - name: pu-git
