@@ -5,5 +5,5 @@ set -e -x
 export TERM=${TERM:-dumb}
 
 pushd pu-git
-  ./gradlew clean test
+  gradle clean test
 popd
