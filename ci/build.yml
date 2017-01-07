@@ -4,7 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: saturnism/spring-boot
+    repository: java
+    tag: '8'
 
 inputs:
 - name: pu-git
