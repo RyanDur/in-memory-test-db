@@ -34,8 +34,8 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
 
-//
-//flyway {
-//    url = 'jdbc:mysql://localhost/foo'
-//    user = 'root'
-//}
+
+flyway {
+    url = 'jdbc:mysql://localhost/foo'
+    user = 'root'
+}
