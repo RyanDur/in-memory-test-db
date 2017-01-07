@@ -13,11 +13,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-@EnableAutoConfiguration(exclude=FlywayAutoConfiguration.class)
 @SpringBootConfiguration
 public class TestContext {
 
-
+    @EnableAutoConfiguration(exclude=FlywayAutoConfiguration.class)
     @TestConfiguration
     static class Config {
 
