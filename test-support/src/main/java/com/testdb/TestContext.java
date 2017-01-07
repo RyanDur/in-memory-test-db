@@ -3,6 +3,8 @@ package com.testdb;
 import com.testdb.testhelpers.ProgrammerTestFixture;
 import com.testdb.testhelpers.UnicornTestFixture;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
+@EnableAutoConfiguration(exclude=FlywayAutoConfiguration.class)
 @SpringBootConfiguration
 public class TestContext {
 
