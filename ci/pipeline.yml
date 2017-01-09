@@ -4,11 +4,13 @@ resources:
   type: git
   source:
     uri: https://github.com/RyanDur/in-memory-test-db
+    branch: master
 
 jobs:
 - name: job-hello-unicorn
   public: true
   plan:
   - get: pu-git
+    trigger: true
   - task: hello-unicorn
     file: pu-git/ci/build.yml
