@@ -6,6 +6,15 @@ resources:
     uri: https://github.com/RyanDur/in-memory-test-db
     branch: master
 
+- name: staging-app
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: RyanDur
+    password: 12Durken!
+    organization: ConcoursePrac
+    space: Pumpkin-Butt
+
 jobs:
 - name: job-hello-unicorn
   public: true
@@ -14,3 +23,6 @@ jobs:
     trigger: true
   - task: hello-unicorn
     file: pu-git/ci/build.yml
+  - put: staging-app
+    
+
