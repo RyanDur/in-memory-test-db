@@ -25,7 +25,7 @@ jobs:
     file: pu-git/ci/build.yml
   - put: staging-app
     params:
-      manifest: manifest.yml
+      manifest: pu-git/manifest.yml
 
 
 
