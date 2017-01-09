@@ -1,5 +1,4 @@
 ---
 applications:
 - name: pu-git
-  path: build/libs/HSQLDBPlayGround-1.0-SNAPSHOT.jar
   memory: 512M
