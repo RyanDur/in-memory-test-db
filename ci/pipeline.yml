@@ -26,6 +26,3 @@ jobs:
   - put: staging-app
     params:
       manifest: pu-git/manifest.yaml
-
-
-
