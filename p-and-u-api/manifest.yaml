@@ -1,0 +1,5 @@
+---
+applications:
+- name: p-and-u-api
+  memory: 512M
+  buildpack: java_buildpack

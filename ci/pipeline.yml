@@ -6,7 +6,16 @@ resources:
     uri: https://github.com/RyanDur/in-memory-test-db
     branch: master
 
-- name: staging-app
+- name: p-and-u-api
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: rdurling@pivotal.io
+    password: 12Durken!
+    organization: ConcoursePrac
+    space: Pumpkin-Butt
+
+- name: programmers-and-unicorns
   type: cf
   source:
     api: https://api.run.pivotal.io
@@ -23,6 +32,9 @@ jobs:
     trigger: true
   - task: hello-unicorn
     file: pu-git/ci/build.yml
-  - put: staging-app
+  - put: p-and-u-api
     params:
-      manifest: pu-git/manifest.yaml
+      manifest: pu-git/p-and-u-api/manifest.yaml
+  - put: programmers-and-unicorns
+    params:
+      manifest: pu-git/programmers-and-unicorns/manifest.yaml
