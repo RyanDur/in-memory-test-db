@@ -2,3 +2,4 @@
 applications:
 - name: pu-git
   memory: 512M
+  buildpack: java
