@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.SpringSqlAnnotationExample" tests="3" skipped="0" failures="0" errors="0" timestamp="2017-01-09T15:43:43" hostname="Pivotals-iMac-100.local" time="0.033">
+  <properties/>
+  <testcase name="printRows" classname="com.SpringSqlAnnotationExample" time="0.012"/>
+  <testcase name="programmersNeedAUnicorn" classname="com.SpringSqlAnnotationExample" time="0.01"/>
+  <testcase name="overrideSqlAndPrintRows" classname="com.SpringSqlAnnotationExample" time="0.009"/>
+  <system-out><![CDATA[2017-01-09 09:43:43.162  INFO 84824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.SpringSqlAnnotationExample], using SpringBootContextLoader
+2017-01-09 09:43:43.163  INFO 84824 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.SpringSqlAnnotationExample]: no resource found for suffixes {-context.xml, Context.groovy}.
+2017-01-09 09:43:43.169  INFO 84824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener]
+2017-01-09 09:43:43.170  INFO 84824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Could not instantiate TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener]. Specify custom listener classes or make the default listener classes (and their required dependencies) available. Offending class: [javax/servlet/ServletContext]
+2017-01-09 09:43:43.171  INFO 84824 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@79ddfd1b, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@56ec6d8a, org.springframework.test.context.support.DirtiesContextTestExecutionListener@26a0a231, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4b83e35, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@121b2e9c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@27ae8168, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@43c0e86]
+2017-01-09 09:43:43.176  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [drop_schema.sql]
+2017-01-09 09:43:43.177  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [drop_schema.sql] in 1 ms.
+2017-01-09 09:43:43.177  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [schema.sql]
+2017-01-09 09:43:43.178  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [schema.sql] in 1 ms.
+2017-01-09 09:43:43.179  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [data.sql]
+2017-01-09 09:43:43.179  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [data.sql] in 0 ms.
+printRows
+[John, Sam]
+2017-01-09 09:43:43.188  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [drop_schema.sql]
+2017-01-09 09:43:43.190  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [drop_schema.sql] in 1 ms.
+2017-01-09 09:43:43.190  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [schema.sql]
+2017-01-09 09:43:43.191  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [schema.sql] in 1 ms.
+programmersNeedAUnicorn
+Unicorn {
+	name = 'Sparkle Mane',
+	programmer = Paul
+}
+2017-01-09 09:43:43.199  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [drop_schema.sql]
+2017-01-09 09:43:43.200  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [drop_schema.sql] in 1 ms.
+2017-01-09 09:43:43.200  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [schema.sql]
+2017-01-09 09:43:43.201  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [schema.sql] in 1 ms.
+2017-01-09 09:43:43.201  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executing SQL script from class path resource [override_data.sql]
+2017-01-09 09:43:43.202  INFO 84824 --- [    Test worker] o.s.jdbc.datasource.init.ScriptUtils     : Executed SQL script from class path resource [override_data.sql] in 1 ms.
+overrideSqlAndPrintRows
+[Joe, Satish, Sherley]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

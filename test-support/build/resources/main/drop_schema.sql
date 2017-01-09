@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS unicorn;
+DROP TABLE IF EXISTS programmer;
