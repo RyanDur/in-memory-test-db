@@ -24,5 +24,8 @@ jobs:
   - task: hello-unicorn
     file: pu-git/ci/build.yml
   - put: staging-app
+    params:
+      manifest: manifest.yml
+
 
 
