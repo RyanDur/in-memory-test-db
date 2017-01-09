@@ -6,7 +6,7 @@ resources:
     uri: https://github.com/RyanDur/in-memory-test-db
     branch: master
 
-- name: p-and-u-api
+- name: p-and-u-api-dev
   type: cf
   source:
     api: https://api.run.pivotal.io
@@ -16,13 +16,20 @@ resources:
     space: {{space}}
 
 jobs:
-- name: job-hello-unicorn
+- name: test
   public: true
   plan:
   - get: pu-git
     trigger: true
   - task: hello-unicorn
     file: pu-git/ci/build.yml
-  - put: p-and-u-api
+
+- name: deploy-dev
+  serial: true
+  plan:
+  - get: pu-git
+    trigger: true
+    passed: [test]
+  - put: p-and-u-api-dev
     params:
       manifest: pu-git/p-and-u-api/manifest.yaml

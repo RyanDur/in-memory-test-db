@@ -10,5 +10,8 @@ image_resource:
 inputs:
 - name: pu-git
 
+output:
+- name: some-jar
+
 run:
   path: ./pu-git/ci/test.sh
