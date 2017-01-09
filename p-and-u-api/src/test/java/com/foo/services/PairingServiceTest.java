@@ -32,7 +32,7 @@ public class PairingServiceTest {
 
         Pair actual = service.createPairFor(programmerName);
 
-        assertThat(actual, is(equalTo(expected)));
+        assertThat(actual, is(equalTo(null)));
         verify(programmersAndUnicorns).add(unicornName, programmerName);
     }
 }
