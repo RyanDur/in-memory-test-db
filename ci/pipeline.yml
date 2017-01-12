@@ -30,11 +30,11 @@ jobs:
   plan:
   - get: pu-git
     trigger: true
+  - task: hello-unicorn
+    file: pu-git/ci/tasks/build.yml
   - put: pu-rc
     params:
       file: pu-jars/p-and-u-api-*.jar
-  - task: hello-unicorn
-    file: pu-git/ci/tasks/build.yml
 
 - name: deploy-pcf
   serial: true
