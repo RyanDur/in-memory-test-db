@@ -32,7 +32,7 @@ jobs:
     trigger: true
   - put: pu-rc
     params:
-      file: p-an-u-api/build/libs/p-and-u-api-*.jar
+      file: pu-jars/p-and-u-api-*.jar
   - task: hello-unicorn
     file: pu-git/ci/tasks/build.yml
 
