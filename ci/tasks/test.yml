@@ -11,4 +11,4 @@ inputs:
 - name: pu-git
 
 run:
-  path: ./pu-git/ci/test.sh
+  path: ./pu-git/ci/scripts/test.sh

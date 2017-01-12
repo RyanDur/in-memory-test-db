@@ -6,7 +6,7 @@ resources:
     uri: https://github.com/RyanDur/in-memory-test-db
     branch: master
 
-- name: p-and-u-api-dev
+- name: pu-pcf
   type: cf
   source:
     api: https://api.run.pivotal.io
@@ -16,20 +16,20 @@ resources:
     space: {{space}}
 
 jobs:
-- name: test
+- name: run-tests
   public: true
   plan:
   - get: pu-git
     trigger: true
   - task: hello-unicorn
-    file: pu-git/ci/tasks/build.yml
+    file: pu-git/ci/tasks/test.yml
 
-- name: deploy-dev
+- name: deploy-pcf
   serial: true
   plan:
   - get: pu-git
     trigger: true
-    passed: [test]
-  - put: p-and-u-api-dev
+    passed: [run-tests]
+  - put: pu-pcf
     params:
-      manifest: pu-git/p-and-u-api/manifest.yaml
+      manifest: pu-git/pu-api/manifest.yaml
