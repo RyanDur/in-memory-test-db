@@ -32,4 +32,4 @@ jobs:
     passed: [run-tests]
   - put: pu-pcf
     params:
-      manifest: pu-git/pu-api/manifest.yaml
+      manifest: pu-git/p-and-u-api/manifest.yaml
