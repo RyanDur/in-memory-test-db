@@ -4,8 +4,8 @@ set -e -x
 
 export TERM=${TERM:-dumb}
 
-pushd post-build-pu-codebase/
+pushd pu-git/
   ./gradlew clean build &&
 popd
 
-mv post-build-pu-codebase/p-and-u-api/build/libs/p-and-u-api-*.jar pu-jars/
+mv pu-git/p-and-u-api/build/libs/p-and-u-api-*.jar pu-jars/
