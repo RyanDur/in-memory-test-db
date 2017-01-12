@@ -1,5 +1,14 @@
 ---
 resources:
+- name: pu-rc
+  type: s3
+  source:
+    bucket: pu-rc-artifacts
+    regexp: p-and-u-api-(.*).jar
+    endpoint: http://10.35.117.122:9000
+    access_key_id: {{s3-key-id}}
+    secret_access_key: {{s3-access-key}}
+
 - name: pu-git
   type: git
   source:
@@ -16,20 +25,23 @@ resources:
     space: {{space}}
 
 jobs:
-- name: run-tests
+- name: build
   public: true
   plan:
   - get: pu-git
     trigger: true
+  - put: pu-rc
+    params:
+      file: p-an-u-api/build/libs/p-and-u-api-*.jar
   - task: hello-unicorn
-    file: pu-git/ci/tasks/test.yml
+    file: pu-git/ci/tasks/build.yml
 
 - name: deploy-pcf
   serial: true
   plan:
-  - get: pu-git
+  - get: pu-rc
     trigger: true
-    passed: [run-tests]
+    passed: [build]
   - put: pu-pcf
     params:
       manifest: pu-git/p-and-u-api/manifest.yaml
