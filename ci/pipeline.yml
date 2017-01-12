@@ -5,6 +5,7 @@ resources:
   source:
     bucket: pu-rc-artifacts
     regexp: p-and-u-api-(.*).jar
+    versioned_file: test.jar
     endpoint: http://10.35.117.122:9000
     access_key_id: {{s3-key-id}}
     secret_access_key: {{s3-access-key}}
@@ -30,7 +31,7 @@ jobs:
   plan:
   - get: pu-git
     trigger: true
-  - task: hello-unicorn
+  - task: test & build
     file: pu-git/ci/tasks/build.yml
   - put: pu-rc
     params:
