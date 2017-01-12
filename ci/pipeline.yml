@@ -22,7 +22,7 @@ jobs:
   - get: pu-git
     trigger: true
   - task: hello-unicorn
-    file: pu-git/ci/build.yml
+    file: pu-git/ci/tasks/build.yml
 
 - name: deploy-dev
   serial: true
