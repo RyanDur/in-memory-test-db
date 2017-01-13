@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.foo.services.PairingServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-01-09T15:43:40" hostname="Pivotals-iMac-100.local" time="0.119">
-  <properties/>
-  <testcase name="createPairFor_shouldSaveTheUnicornAndTheProgrammer" classname="com.foo.services.PairingServiceTest" time="0.119"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
