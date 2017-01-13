@@ -46,3 +46,4 @@ jobs:
   - put: pu-pcf
     params:
       manifest: pu-git/p-and-u-api/manifest.yaml
+      path: pu-rc/p-and-u-api-(.*).jar
