@@ -2,5 +2,5 @@
 applications:
 - name: p-and-u-api
   memory: 512M
-  path: build/libs/p-and-u-api-1.0-SNAPSHOT.jar
+  path: pu-rc/p-and-u-api-(.*).jar
   buildpack: java_buildpack

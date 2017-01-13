@@ -5,7 +5,6 @@ resources:
   source:
     bucket: pu-rc-artifacts
     regexp: p-and-u-api-(.*).jar
-#    versioned_file: test.jar
     endpoint: http://10.35.102.154:9000
     access_key_id: {{s3-key-id}}
     secret_access_key: {{s3-access-key}}
