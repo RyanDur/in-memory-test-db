@@ -43,6 +43,7 @@ jobs:
   - get: pu-rc
     trigger: true
     passed: [build]
+  - get: pu-git
   - put: pu-pcf
     params:
       manifest: pu-git/p-and-u-api/manifest.yaml
