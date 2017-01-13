@@ -4,7 +4,7 @@ resources:
   type: s3
   source:
     bucket: pu-rc-artifacts
-    regexp: p-and-u-api-(.*).jar
+#    regexp: p-and-u-api-(.*).jar
     versioned_file: test.jar
     endpoint: http://10.35.117.122:9000
     access_key_id: {{s3-key-id}}
